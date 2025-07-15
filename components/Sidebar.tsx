@@ -5,8 +5,8 @@ import {
   SidebarFooter,
   SidebarHeader,
   SidebarMenu,
-  SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuButton,
 } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import {
@@ -21,22 +21,18 @@ import {
   Users,
   Utensils,
 } from "lucide-react";
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 
 const SidebarComponent = () => {
-  const [activeTab, setActiveTab] = useState<string>("dashboard");
+  const router = useRouter();
   const pathname = usePathname();
 
-  useEffect(() => {
-    const path = pathname.split("/")[1];
-    setActiveTab(path);
-  }, [pathname]);
+  const isActive = (path: string) => pathname === path;
 
   return (
-    <Sidebar className="border-r bg-white">
-      <SidebarHeader className="border-b px-6 py-3 bg-gradient-to-r from-orange-600 to-red-600">
-        <div className="flex items-center gap-2 text-xl font-bold text-white">
+    <Sidebar className="border-r bg-sidebar">
+      <SidebarHeader className="border-b px-6 py-4 bg-sidebar-primary">
+        <div className="flex items-center gap-2 text-xl font-bold text-sidebar-primary-foreground">
           <Utensils className="h-6 w-6" />
           <span>Restaurant POS</span>
         </div>
@@ -45,8 +41,9 @@ const SidebarComponent = () => {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton
-              isActive={activeTab === "dashboard"}
-              onClick={() => setActiveTab("dashboard")}
+              isActive={isActive("/")}
+              onClick={() => router.push("/")}
+              className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
             >
               <Home className="h-5 w-5" />
               <span>Dashboard</span>
@@ -54,9 +51,9 @@ const SidebarComponent = () => {
           </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton
-              isActive={activeTab === "pos"}
-              onClick={() => setActiveTab("pos")}
-              className="bg-gradient-to-r from-orange-500 to-red-500 text-white hover:from-orange-600 hover:to-red-600 data-[active=true]:from-orange-600 data-[active=true]:to-red-600"
+              isActive={isActive("/table")}
+              onClick={() => router.push("/table")}
+              className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
             >
               <ShoppingBag className="h-5 w-5" />
               <span>Table Service</span>
@@ -64,8 +61,9 @@ const SidebarComponent = () => {
           </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton
-              isActive={activeTab === "menu"}
-              onClick={() => setActiveTab("menu")}
+              isActive={isActive("/menu")}
+              onClick={() => router.push("/menu")}
+              className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
             >
               <Coffee className="h-5 w-5" />
               <span>Menu Management</span>
@@ -73,8 +71,9 @@ const SidebarComponent = () => {
           </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton
-              isActive={activeTab === "reservations"}
-              onClick={() => setActiveTab("reservations")}
+              isActive={isActive("/reservations")}
+              onClick={() => router.push("/reservations")}
+              className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
             >
               <Calendar className="h-5 w-5" />
               <span>Reservations</span>
@@ -82,8 +81,9 @@ const SidebarComponent = () => {
           </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton
-              isActive={activeTab === "kitchen"}
-              onClick={() => setActiveTab("kitchen")}
+              isActive={isActive("/kitchen")}
+              onClick={() => router.push("/kitchen")}
+              className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
             >
               <Utensils className="h-5 w-5" />
               <span>Kitchen Display</span>
@@ -91,8 +91,9 @@ const SidebarComponent = () => {
           </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton
-              isActive={activeTab === "sales"}
-              onClick={() => setActiveTab("sales")}
+              isActive={isActive("/sales")}
+              onClick={() => router.push("/sales")}
+              className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
             >
               <ShoppingCart className="h-5 w-5" />
               <span>Sales History</span>
@@ -100,8 +101,9 @@ const SidebarComponent = () => {
           </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton
-              isActive={activeTab === "inventory"}
-              onClick={() => setActiveTab("inventory")}
+              isActive={isActive("/inventory")}
+              onClick={() => router.push("/inventory")}
+              className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
             >
               <Package className="h-5 w-5" />
               <span>Inventory</span>
@@ -109,8 +111,9 @@ const SidebarComponent = () => {
           </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton
-              isActive={activeTab === "staff"}
-              onClick={() => setActiveTab("staff")}
+              isActive={isActive("/staff")}
+              onClick={() => router.push("/staff")}
+              className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
             >
               <Users className="h-5 w-5" />
               <span>Staff Management</span>
@@ -118,8 +121,9 @@ const SidebarComponent = () => {
           </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton
-              isActive={activeTab === "reports"}
-              onClick={() => setActiveTab("reports")}
+              isActive={isActive("/reports")}
+              onClick={() => router.push("/reports")}
+              className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
             >
               <BarChart className="h-5 w-5" />
               <span>Reports</span>
@@ -127,8 +131,9 @@ const SidebarComponent = () => {
           </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton
-              isActive={activeTab === "settings"}
-              onClick={() => setActiveTab("settings")}
+              isActive={isActive("/settings")}
+              onClick={() => router.push("/settings")}
+              className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
             >
               <CreditCard className="h-5 w-5" />
               <span>Settings</span>
@@ -136,16 +141,18 @@ const SidebarComponent = () => {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarContent>
-      <SidebarFooter className="border-t p-4">
+      <SidebarFooter className="border-t p-4 bg-sidebar-accent">
         <div className="flex items-center gap-2">
           <Avatar>
             <AvatarImage src="/placeholder-user.jpg" alt="User avatar" />
-            <AvatarFallback className="bg-orange-600 text-white">
+            <AvatarFallback className="bg-sidebar-primary text-sidebar-primary-foreground">
               M
             </AvatarFallback>
           </Avatar>
           <div>
-            <p className="text-sm font-medium">Manager</p>
+            <p className="text-sm font-medium text-sidebar-foreground">
+              Manager
+            </p>
             <p className="text-xs text-muted-foreground">
               manager@restaurant.com
             </p>
